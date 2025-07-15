@@ -11,6 +11,7 @@ from PIL import Image
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
+import json
 
 # ---- Global Setup ----
 UPLOAD_FOLDER = "temp_files"
@@ -202,12 +203,20 @@ async def extract_file(file: UploadFile = File(...)):
         raw_text, duration = process_document(filepath)
         parsed = parse_output(raw_text)
 
-        return JSONResponse({
+        response_data = {
             "message": "File processed successfully!",
             "filename": file.filename,
             "time_taken_sec": round(duration, 2),
             "extracted_data": parsed
-        })
+        }
+
+        # Save output as JSON
+        json_filename = f"{unique_filename}.json"
+        json_filepath = os.path.join(UPLOAD_FOLDER, json_filename)
+        with open(json_filepath, "w") as json_file:
+            json.dump(response_data, json_file, indent=2)
+
+        return JSONResponse(response_data)
 
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})

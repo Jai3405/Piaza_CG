@@ -1,0 +1,46 @@
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.drop-area {
+  border: 2px dashed #4f8cff;
+  border-radius: 12px;
+  padding: 2rem 3rem;
+  text-align: center;
+  background: #f8faff;
+  color: #4f8cff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  margin-bottom: 1rem;
+  min-width: 320px;
+}
+.drop-area:hover, .drop-area:focus {
+  background: #e6f0ff;
+  border-color: #2563eb;
+}
+.drop-area.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.upload-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.loader {
+  border: 4px solid #e6f0ff;
+  border-top: 4px solid #4f8cff;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 
